@@ -1,0 +1,10 @@
+/**
+ * Created by user on 17.08.2020.
+ */
+
+.THIS {
+}
+
+.THIS .contacts-table-data .slds-scrollable_y {
+    max-height: 200px!important;
+}
