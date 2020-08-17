@@ -2,10 +2,11 @@
     fetchContacts : function(cmp, event, helper) {
         cmp.set('v.mycolumns', [
             {label: 'Name', fieldName: 'linkContName', type: 'url', sortable : true, typeAttributes: { label: { fieldName: 'Name' }, target: '_blank'}},
-            {label: 'Email', fieldName: 'Email', type: 'email'},
-            {label: 'Birthday', fieldName: 'Birthdate', type: 'date'},
-            {label: 'Account Name', fieldName: 'AccountName', type: 'text'}
+            {label: 'Email', fieldName: 'Email', type: 'email', sortable : true},
+            {label: 'Birthday', fieldName: 'Birthdate', type: 'date', sortable : true},
+            {label: 'Account Name', fieldName: 'linkAccName', type: 'url', sortable : true, typeAttributes: { label: { fieldName: 'AccountName' }, target: '_blank'}  }
         ]);
+
         helper.getContacts(cmp, event, helper);
     },
     

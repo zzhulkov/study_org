@@ -6,10 +6,12 @@
             case 'linkContName': data = Object.assign([],
                                                        data.sort(this.sortBy('Name', reverse ? -1 : 1)));
                 break;
+            case 'linkAccName' : data = Object.assign([],
+                                                      data.sort(this.sortBy('AccountName', reverse ? -1 : 1)));
+                break;
 
             default: data = Object.assign([],
                                           data.sort(this.sortBy(fieldName, reverse ? -1 : 1)));
-
         }
         cmp.set("v.contList", data);
     },
@@ -49,6 +51,8 @@
             row.linkContName = '/'+row.Id;
             if (row.Account) {
                 row.AccountName = row.Account.Name;
+                row.AccountId = row.Account.Id;
+                row.linkAccName='/'+row.AccountId;
             }
         }
         return rows;
