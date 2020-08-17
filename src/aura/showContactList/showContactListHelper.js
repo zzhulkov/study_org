@@ -15,16 +15,22 @@
         }
         cmp.set("v.contList", data);
     },
-    
-    getContacts: function (cmp, event, helper) {
+
+
+    getContacts: function (cmp, event, offSetCount) {
         var action = cmp.get("c.fetchCont");
         action.setParams({
+            "intOffSet" : offSetCount
         });
         action.setCallback(this, function(response){
             var state = response.getState();
             if (state === "SUCCESS") {
-                cmp.set("v.contList", helper.formatData(response.getReturnValue()));
+                var loadedRecords = helper.formatData(response.getReturnValue());
+                console.log("loaded records: " + loadedRecords);
+                var currentContList=cmp.get("v.contList");
+                cmp.set("v.contList", currentContList.concat(loadedRecords));
             }
+            event.getSource().set("v.isLoading", false);
         });
         $A.enqueueAction(action);
     },
@@ -94,9 +100,7 @@
                 });
                 // Fire success toast event ( Show toast )
                 toastEvent.fire();
-                
             }
-            
         });
         $A.enqueueAction(action);
     }
