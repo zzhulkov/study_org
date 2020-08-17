@@ -1,0 +1,62 @@
+<!--
+ - @author        Anastasia Sapihora
+ - @date          29 June 2020
+ - @description   LC for modal window with attributes/events to customize it
+ -->
+
+<aura:component description="BaseModal"
+                extensible="true">
+
+    <!-- Attributes -->
+    <aura:attribute name="isOpen" type="Boolean" />
+    <aura:attribute name="darkBackground" type="Boolean" default="true" />
+    <aura:attribute name="showCloseButton" type="Boolean" default="true" />
+    <aura:attribute name="class" type="String" default="" />
+    <aura:attribute name="animationClass" type="String" default="slds-fade-in-open" />
+    <aura:attribute name="isCloseByEsc" type="Boolean" default="true" />
+    <aura:attribute name="isCloseByOutclick" type="Boolean" default="true" />
+    <aura:attribute name="modalWidth" type="String" default="small" />
+
+    <!-- Handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- Register events -->
+    <aura:registerEvent name="onclose" type="c:GenericComponentEvent" />
+
+    <div>
+
+        <section role="dialog" tabindex="-1" aria-modal="false" class="{!join(' ',
+      'slds-modal',
+      v.class,
+      v.isOpen?v.animationClass:''
+      )}" onclick="{!c.onOutClick}">
+
+            <div class="{!join(' ',
+            'slds-modal__container',
+            v.modalWidth + '-width'
+            )}">
+                <div class="modal-dialog" onclick="{!c.stopPropagation}">
+
+                    <aura:if isTrue="{!v.showCloseButton}">
+                        <lightning:button class="slds-modal__close" onclick="{!c.onClose}" variant="bare">
+                            <lightning:icon iconName="utility:close" alternativeText="Close" size="small" />
+                        </lightning:button>
+                    </aura:if>
+
+                    <div class="modal-body-wrapper"> {!v.body} </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <aura:if isTrue="{!v.darkBackground}">
+            <div class="{!join(' ',
+            'slds-backdrop',
+            v.isOpen?'slds-backdrop_open':''
+            )}"></div>
+        </aura:if>
+
+    </div>
+
+</aura:component>

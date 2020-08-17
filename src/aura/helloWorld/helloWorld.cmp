@@ -1,0 +1,7 @@
+<aura:component implements="flexipage:availableForRecordHome" >
+	<p> Hello world!</p>
+    <div class="row">
+        <h2 class="header">Basic Input Text</h2>
+        <lightning:input name="input1" label="Enter some text" />
+    </div>
+</aura:component>

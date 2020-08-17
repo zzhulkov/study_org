@@ -1,0 +1,17 @@
+<apex:page controller="sendPDFtoEmailController">
+    <apex:form >
+        <apex:pageBlock title="Send PDF">
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!sendPdf}" value="Send PDF"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    <apex:inputText value="{!emailAddress}" id="email"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

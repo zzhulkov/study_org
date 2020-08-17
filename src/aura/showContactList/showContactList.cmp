@@ -1,0 +1,33 @@
+<aura:component controller= "ShowContactListController" 
+                implements= "flexipage:availableForRecordHome,force:hasRecordId">
+    <aura:attribute type="Object[]" name="contList"/>
+    <aura:attribute name="mycolumns" type="List"/>
+    <aura:attribute name="sortedDirection" type="String" default="asc" />
+    <aura:attribute name="defaultSortDirection" type="String" default="asc" />
+    <aura:attribute name="sortedBy" type="String" />
+    <aura:attribute name="selectedRows" type="List"/>
+    <aura:attribute name="isDisableButtonDelete" type="Boolean" default="true"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.fetchContacts}"/>
+    <lightning:card>
+        <ul class="slds-button-group-list">
+            <li>
+                <button class="slds-button slds-button_neutral" onclick="{!c.newRecord}">New contact</button>
+            </li>
+            <li>
+                <button class="slds-button slds-button_destructive" onclick="{!c.deleteSelectedContacts}"
+                        disabled="{!v.isDisableButtonDelete}">Delete selected</button>
+            </li>
+        </ul>
+        <lightning:datatable data="{! v.contList }" 
+                             columns="{! v.mycolumns }" 
+                             keyField="id"
+                             aura:id="contactsTable"
+                             selectedRows="{!v.selectedRows}"
+                             defaultSortDirection="{!v.defaultSortDirection}"
+                             sortedDirection="{!v.sortedDirection}"
+                             sortedBy="{!v.sortedBy}"
+                             onsort="{!c.handleSort}"
+                             onrowselection="{!c.handleSelection}"/>
+    </lightning:card>
+</aura:component>

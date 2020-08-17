@@ -1,0 +1,35 @@
+.THIS .modal-dialog {
+    position: relative;
+}
+.THIS .slds-modal__content {
+    padding: 20px;
+    border-radius: 3px;
+    color: #495662;
+}
+.THIS .slds-modal__close {
+    /* border-width: 0; */
+    border: 0;
+}
+.THIS .slds-modal__close:focus {
+    box-shadow: none;
+    border: 0;
+}
+.THIS .slds-modal__close svg {
+    fill: #ecebeb;
+    transition: fill 0.3s;
+}
+.THIS .slds-modal__close:hover svg {
+    fill: #ffffff;
+}
+
+.THIS .large-width {
+    width: 90%;
+    max-width: unset;
+}
+.THIS .medium-width {
+    width: 70%;
+    max-width: unset;
+}
+.THIS .small-width {
+    width: 50%;
+}

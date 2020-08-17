@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Contact_cannot_be_closed_when_a_related_Case_is_still_open</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Contact_cannot_be_closed_when_a_related_Case_is_still_open</shortDescription>
+        <value>Contact cannot be closed when a related Case is still open.</value>
+    </labels>
+</CustomLabels>

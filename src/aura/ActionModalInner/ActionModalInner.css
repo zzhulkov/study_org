@@ -1,0 +1,20 @@
+.THIS {
+    max-height: 90vh;
+    position: relative;
+}
+.THIS .catch-autofocus {
+    position: absolute;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}
+.THIS .dm-header__title {
+    font-size: 20px;
+}
+.THIS .dm-body {
+    padding: 1rem;
+    background-color: #fff;
+}
+.THIS .uiScrollerWrapper {
+    background-color: #fff;
+}

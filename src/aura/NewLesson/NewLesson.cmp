@@ -1,0 +1,12 @@
+<aura:component description="NewLesson"
+                implements="force:hasRecordId,force:lightningQuickActionWithoutHeader"
+                extends="c:SuperComponent"
+                controller="NewLessonController"
+                access="global">
+    <!-- Do Init -->
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+ 
+    <lightning:spinner variant="brand"
+                       size="medium"
+                       aura:id="mySpinner" /> 
+</aura:component>

@@ -1,0 +1,56 @@
+<apex:page showHeader="false" standardController="Lesson__c" extensions="LessonExamplePdfExtension" renderAs="pdf">
+    <apex:image alt="lesson" title="lesson" height="80px" width="80px"
+                url="{!URLFOR($Resource.iconsResource, 'png/lesson.png')}"/>
+    <h3 style="align:center">
+        Lesson Attendees:  {!Lesson__c.Name}
+    </h3>
+    Course: {! Lesson__c.course__r.Name}<br/>
+    Teacher: {! Lesson__c.teacher__r.Name}<br/>
+    Start Date/Time: <apex:outputText value=" {0,date,h:mm a, EEE MMM d, yyyy}">  
+    <apex:param value="{!Lesson__c.StartDateTime__c}"/>  
+    </apex:outputText><br/>
+    End Date/Time: <apex:outputText value=" {0,date,h:mm a, EEE MMM d, yyyy}">  
+    <apex:param value="{!Lesson__c.EndDateTime__c}"/>  
+    </apex:outputText>
+    
+    
+    <h3>Full table(using repeat</h3>
+    <apex:variable value="{!1}" var="rowNum"/>
+    <table border="1">
+        <apex:repeat var="student_i" value="{!Lesson__c.LessonAttendees__r}">
+            <tr>
+                <td>
+                    <apex:outputText value="{!FLOOR(rowNum)}"/>.
+                    <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                </td>
+                <td>
+                    {!student_i.Student__r.Name}
+                </td>
+                <td>
+                    {!IF(!student_i.WillBeAbsent__c, "X", "[ ]")}
+                </td>
+                <td>
+                    {!student_i.Comment__c}
+                </td>
+            </tr>
+        </apex:repeat>
+    </table>
+    <br/>
+    
+    <h3>Full table(using pageBlock table</h3>
+    <apex:variable value="{!1}" var="rowNum1"/>
+    <apex:pageBlock title="Students">
+
+        <apex:pageBlockTable value="{!Lesson__c.LessonAttendees__r}" var="student_i">
+
+            <apex:column headerValue="#" value="{!rowNum1}"/>
+            <apex:variable var="rowNum1" value="{!rowNum1 + 1}"/>
+            <apex:column headerValue="Student Name" value="{!student_i.Student__r.Name}" />
+            <!-- <apex:column headerValue="Is Present" value="{!IF(!student_i.WillBeAbsent__c, 'X', '[ ]')}" /> -->
+            <apex:column headerValue="Comment" value="{!student_i.Comment__c}" />
+
+        </apex:pageBlockTable>
+
+    </apex:pageBlock> 
+    
+</apex:page>
