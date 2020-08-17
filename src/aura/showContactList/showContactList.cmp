@@ -7,7 +7,7 @@
     <aura:attribute name="sortedBy" type="String"/>
     <aura:attribute name="selectedRows" type="List"/>
     <aura:attribute name="isDisableButtonDelete" type="Boolean" default="true"/>
-
+    <aura:attribute name="totalNumberOfRows" type="Integer"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
     <lightning:card>
@@ -37,7 +37,6 @@
                                      onrowselection="{!c.handleSelection}"
                                      enableInfiniteLoading="true"
                                      onloadmore="{!c.loadMoreData}"/>
-
             </lightning:layoutItem>
         </lightning:layout>
     </lightning:card>

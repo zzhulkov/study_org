@@ -4,7 +4,7 @@
         var reverse = sortDirection !== 'asc';
         switch(fieldName){
             case 'linkContName': data = Object.assign([],
-                                                       data.sort(this.sortBy('Name', reverse ? -1 : 1)));
+                                                      data.sort(this.sortBy('Name', reverse ? -1 : 1)));
                 break;
             case 'linkAccName' : data = Object.assign([],
                                                       data.sort(this.sortBy('AccountName', reverse ? -1 : 1)));
@@ -19,26 +19,32 @@
 
     getContacts: function (cmp, event, offSetCount) {
         var self = this;
-        var action = cmp.get("c.fetchCont");
-        action.setParams({
-            "intOffSet" : offSetCount
-        });
-        action.setCallback(this, function(response){
-            var state = response.getState();
-            if (state === "SUCCESS") {
-                var loadedRecords = self.formatData(response.getReturnValue());
-                console.log("loaded records: " + loadedRecords);
-                var currentContList=cmp.get("v.contList");
-                cmp.set("v.contList", currentContList.concat(loadedRecords));
-            }
-            console.log( cmp.get("v.contList"));
+        //start
+        if(cmp.get('v.contList').length >= cmp.get('v.totalNumberOfRows')){
+            cmp.set('v.enableInfiniteLoading', false);
             event.getSource().set("v.isLoading", false);
-            console.log(event.getSource());
-
-        });
-        $A.enqueueAction(action);
+        }else{
+            var action = cmp.get("c.fetchCont");
+            action.setParams({
+                "intOffSet" : offSetCount
+            });
+            action.setCallback(this, function(response){
+                var state = response.getState();
+                if (state === "SUCCESS") {
+                    var loadedRecords = self.formatData(response.getReturnValue());
+                    console.log("loaded records: " + loadedRecords);
+                    var currentContList=cmp.get("v.contList");
+                    cmp.set("v.contList", currentContList.concat(loadedRecords));
+                }
+                console.log( cmp.get("v.contList"));
+                event.getSource().set("v.isLoading", false);
+                console.log(event.getSource());
+            });
+            $A.enqueueAction(action);
+        }
     },
-    
+
+
     sortBy: function (field, reverse, primer) {
         var key = primer
         ? function(x) {
@@ -47,14 +53,14 @@
         : function(x) {
             return x[field];
         };
-        
+
         return function (a, b) {
-           var A = (key(a)) ? (key(a)) : "";
-                   var B = key(b) ? key(b) : "";
-                   return reverse * ((A.toLowerCase() > B.toLowerCase()) - (B.toLowerCase() > A.toLowerCase()));
+            var A = (key(a)) ? (key(a)) : "";
+            var B = key(b) ? key(b) : "";
+            return reverse * ((A.toLowerCase() > B.toLowerCase()) - (B.toLowerCase() > A.toLowerCase()));
         };
     },
-    
+
     formatData : function( rows ) {
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i];
@@ -67,7 +73,7 @@
         }
         return rows;
     },
-    
+
     deleteConts : function(cmp, event, helper){
 
         //console.log("LENGTH= "+ selectedContactsList.length);

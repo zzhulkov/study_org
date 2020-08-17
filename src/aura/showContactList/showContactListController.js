@@ -6,10 +6,20 @@
             {label: 'Birthday', fieldName: 'Birthdate', type: 'date', sortable : true},
             {label: 'Account Name', fieldName: 'linkAccName', type: 'url', sortable : true, typeAttributes: { label: { fieldName: 'AccountName' }, target: '_blank'}  }
         ]);
-        console.log("in init func");
+        var action = cmp.get("c.getNumberOrRows");
+                action.setParams({});
+                action.setCallback(this, function(response){
+                    var state = response.getState();
+                    if (state === "SUCCESS") {
+                        var totalNumberOfRows= response.getReturnValue();
+                        console.log("totalNumberOfRows: " + totalNumberOfRows);
+                        cmp.set("v.totalNumberOfRows", totalNumberOfRows);
+                    }
+                });
+                $A.enqueueAction(action);
         helper.getContacts(cmp, event, 0);
     },
-    
+
     handleSelection :function (cmp, event, helper){
         var selRows=event.getParam("selectedRows");
         if(selRows.length>0){
@@ -21,7 +31,6 @@
     },
 
     loadMoreData : function(cmp, event, helper) {
-        debugger;
         console.log(event.getSource());
         event.getSource().set("v.isLoading", true);
         cmp.set('v.loadMoreStatus', 'Loading');
