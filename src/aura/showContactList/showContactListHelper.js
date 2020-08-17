@@ -2,10 +2,15 @@
     sortData: function (cmp, fieldName, sortDirection) {
         var data = cmp.get("v.contList");
         var reverse = sortDirection !== 'asc';
-        
-        data = Object.assign([],
-                             data.sort(this.sortBy(fieldName, reverse ? -1 : 1))
-                            );
+        switch(fieldName){
+            case 'linkContName': data = Object.assign([],
+                                                       data.sort(this.sortBy('Name', reverse ? -1 : 1)));
+                break;
+
+            default: data = Object.assign([],
+                                          data.sort(this.sortBy(fieldName, reverse ? -1 : 1)));
+
+        }
         cmp.set("v.contList", data);
     },
     
@@ -41,6 +46,7 @@
     formatData : function( rows ) {
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i];
+            row.linkContName = '/'+row.Id;
             if (row.Account) {
                 row.AccountName = row.Account.Name;
             }

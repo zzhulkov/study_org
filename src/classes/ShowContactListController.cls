@@ -2,7 +2,7 @@ public class ShowContactListController {
     
     @AuraEnabled
     public static List < Contact > fetchCont() {
-        return [ SELECT Id, Name, Email, Birthdate, Account.Name FROM Contact];
+        return [ SELECT Id, Name, Email, Birthdate, Account.Name, Account.Id FROM Contact];
     }
     
     @AuraEnabled

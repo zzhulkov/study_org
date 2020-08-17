@@ -33,6 +33,8 @@
                                      sortedBy="{!v.sortedBy}"
                                      onsort="{!c.handleSort}"
                                      onrowselection="{!c.handleSelection}"/>
+<!--                                     enableInfiniteLoading="true"
+                                     onloadmore="{! c.loadMoreData }"-->
             </lightning:layoutItem>
         </lightning:layout>
     </lightning:card>
