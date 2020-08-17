@@ -18,6 +18,7 @@
 
 
     getContacts: function (cmp, event, offSetCount) {
+        var self = this;
         var action = cmp.get("c.fetchCont");
         action.setParams({
             "intOffSet" : offSetCount
@@ -25,12 +26,15 @@
         action.setCallback(this, function(response){
             var state = response.getState();
             if (state === "SUCCESS") {
-                var loadedRecords = helper.formatData(response.getReturnValue());
+                var loadedRecords = self.formatData(response.getReturnValue());
                 console.log("loaded records: " + loadedRecords);
                 var currentContList=cmp.get("v.contList");
                 cmp.set("v.contList", currentContList.concat(loadedRecords));
             }
+            console.log( cmp.get("v.contList"));
             event.getSource().set("v.isLoading", false);
+            console.log(event.getSource());
+
         });
         $A.enqueueAction(action);
     },
@@ -45,9 +49,9 @@
         };
         
         return function (a, b) {
-            var A = key(a);
-            var B = key(b);
-            return reverse * ((A > B) - (B > A));
+           var A = (key(a)) ? (key(a)) : "";
+                   var B = key(b) ? key(b) : "";
+                   return reverse * ((A.toLowerCase() > B.toLowerCase()) - (B.toLowerCase() > A.toLowerCase()));
         };
     },
     
@@ -65,6 +69,7 @@
     },
     
     deleteConts : function(cmp, event, helper){
+
         //console.log("LENGTH= "+ selectedContactsList.length);
         var selectedContactsList=cmp.find("contactsTable").getSelectedRows();
         var contactIdsToDelList=[];

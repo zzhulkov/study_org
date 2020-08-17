@@ -6,7 +6,7 @@
             {label: 'Birthday', fieldName: 'Birthdate', type: 'date', sortable : true},
             {label: 'Account Name', fieldName: 'linkAccName', type: 'url', sortable : true, typeAttributes: { label: { fieldName: 'AccountName' }, target: '_blank'}  }
         ]);
-
+        console.log("in init func");
         helper.getContacts(cmp, event, 0);
     },
     
@@ -20,10 +20,13 @@
         /**/
     },
 
-    loadMoreData : function(component, event, helper) {
+    loadMoreData : function(cmp, event, helper) {
+        debugger;
+        console.log(event.getSource());
         event.getSource().set("v.isLoading", true);
-        component.set('v.loadMoreStatus', 'Loading');
-        helper.getContacts(component, event, component.get('v.contList').length);
+        cmp.set('v.loadMoreStatus', 'Loading');
+        helper.getContacts(cmp, event, cmp.get('v.contList').length);
+        console.log( "isLoading= " +event.getSource("v.isLoading"));
     },
     
     deleteSelectedContacts: function(cmp, event, helper){

@@ -1,6 +1,6 @@
 <aura:component controller="ShowContactListController"
                 implements="flexipage:availableForRecordHome,force:hasRecordId">
-    <aura:attribute type="Object[]" name="contList"/>
+    <aura:attribute type="List" name="contList"/>
     <aura:attribute name="mycolumns" type="List"/>
     <aura:attribute name="sortedDirection" type="String" default="asc"/>
     <aura:attribute name="defaultSortDirection" type="String" default="asc"/>
@@ -15,6 +15,7 @@
             <li>
                 <button class="slds-button slds-button_neutral" onclick="{!c.newRecord}">New contact</button>
             </li>
+
             <li>
                 <button class="slds-button slds-button_destructive" onclick="{!c.deleteSelectedContacts}"
                         disabled="{!v.isDisableButtonDelete}">Delete selected
